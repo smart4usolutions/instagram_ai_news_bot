@@ -1,0 +1,39 @@
+import requests
+import os
+import textwrap
+from dotenv import load_dotenv
+
+load_dotenv()
+
+API_KEY = os.getenv("OPENROUTER_API_KEY")
+pageName = os.getenv("pageName")
+
+def generate_caption(title, description, category):
+
+    if not description:
+        description = "Latest developments are unfolding in this story."
+
+    # clean the text
+    description = description.replace("[+", "").split("...")[0]
+
+    # create paragraphs
+    lines = textwrap.wrap(description)
+
+    para1 = " ".join(lines[:3])
+    para2 = " ".join(lines[3:6])
+
+    caption = f"""🚨 {category.upper()} NEWS
+
+{title}
+
+{para1}
+
+{para2}
+
+{pageName}
+Stay updated with the latest global developments.
+
+#news #breakingnews #{category.lower()} #worldnews #trending #dailynews
+"""
+
+    return caption
