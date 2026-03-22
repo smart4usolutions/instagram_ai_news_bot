@@ -58,13 +58,13 @@ def create_post_image(headline, image_url, category):
         font_date = ImageFont.load_default()
 
     # page name
-    pageName = os.getenv("pageName")
+    pageName = os.getenv("PAGE_NAME")
     draw.text(
     (40, 40),
     pageName,
     fill="white",
     font=font_page,
-    stroke_width=3,
+    stroke_width=2,
     stroke_fill="black"
     )
 
@@ -78,7 +78,7 @@ def create_post_image(headline, image_url, category):
         date_text,
         fill="white",
         font=font_date,
-        stroke_width=3,
+        stroke_width=2,
         stroke_fill="black"
     )
 

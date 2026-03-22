@@ -6,7 +6,7 @@ from dotenv import load_dotenv
 load_dotenv()
 
 API_KEY = os.getenv("OPENROUTER_API_KEY")
-pageName = os.getenv("pageName")
+pageName = os.getenv("PAGE_NAME")
 
 def generate_caption(title, description, category):
 
