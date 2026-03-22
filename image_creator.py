@@ -114,6 +114,7 @@ def create_post_image(headline, image_url, category):
         font=font_category
     )
 
+
     # separator line
     line_width = 350
     line_y = category_y + 45
