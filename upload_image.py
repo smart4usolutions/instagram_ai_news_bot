@@ -1,7 +1,8 @@
 import requests
+import os
 
-CLOUD_NAME = "dxj6cb574"
-UPLOAD_PRESET = "jlhkbhvi"
+CLOUD_NAME = os.getenv("CLOUD_NAME")
+UPLOAD_PRESET = os.getenv("UPLOAD_PRESET")
 
 def upload_image(image_path):
     url = f"https://api.cloudinary.com/v1_1/{CLOUD_NAME}/image/upload"
