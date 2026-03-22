@@ -3,11 +3,13 @@ from ai_writer import generate_caption
 from image_creator import create_post_image
 from upload_image import upload_image
 from instagram_post import post_to_instagram
+import time
 
 news = get_news()
 
 print("\nNEWS:", news["title"])
 print("\nDISC:", news.get("description"))
+time.sleep(5)
 
 caption = generate_caption(
     news["title"],
@@ -17,6 +19,7 @@ caption = generate_caption(
 
 print("\nINSTAGRAM CAPTION:\n")
 print(caption)
+time.sleep(5)
 
 image_path = create_post_image(
     news["title"],
@@ -25,10 +28,12 @@ image_path = create_post_image(
 )
 
 print("\nIMAGE CREATED:", image_path)
+time.sleep(5)
 
 #upload image
 image_url = upload_image(image_path)
 print("Uploaded URL:", image_url)
+time.sleep(5)
 
 #Post to Instagram
 post_to_instagram(image_url, caption)

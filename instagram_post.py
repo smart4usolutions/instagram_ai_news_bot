@@ -23,6 +23,9 @@ def post_to_instagram(image_url, caption):
 
     print("Container:", res)
 
+    import time
+    time.sleep(15)
+
     # Publish
     publish_url = f"https://graph.instagram.com/v19.0/{IG_USER_ID}/media_publish"
 
