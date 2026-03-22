@@ -45,10 +45,13 @@ def create_post_image(headline, image_url, category):
     draw = ImageDraw.Draw(img)
 
     # fonts
-    font_headline = ImageFont.truetype("fonts/arialbd.ttf", 70)
-    font_category = ImageFont.truetype("fonts/arialbd.ttf", 42)
-    font_page = ImageFont.truetype("fonts/arialbd.ttf", 45)
-    font_date = ImageFont.truetype("fonts/arial.ttf", 35)
+    BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+    print("Font path:", os.path.join(BASE_DIR, "fonts/arialbd.ttf"))
+
+    font_headline = ImageFont.truetype(os.path.join(BASE_DIR, "fonts/arialbd.ttf"), 70)
+    font_category = ImageFont.truetype(os.path.join(BASE_DIR, "fonts/arialbd.ttf"), 42)
+    font_page = ImageFont.truetype(os.path.join(BASE_DIR, "fonts/arialbd.ttf"), 45)
+    font_date = ImageFont.truetype(os.path.join(BASE_DIR, "fonts/arial.ttf"), 35)
     # try:
     #     font_headline = ImageFont.truetype("fonts/arialbd.ttf", 70)
     #     font_category = ImageFont.truetype("fonts/arialbd.ttf", 42)
