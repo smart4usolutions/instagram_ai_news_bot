@@ -45,16 +45,20 @@ def create_post_image(headline, image_url, category):
     draw = ImageDraw.Draw(img)
 
     # fonts
-    try:
-        font_headline = ImageFont.truetype("fonts/arialbd.ttf", 70)
-        font_category = ImageFont.truetype("fonts/arialbd.ttf", 42)
-        font_page = ImageFont.truetype("fonts/arialbd.ttf", 45)
-        font_date = ImageFont.truetype("fonts/arial.ttf", 35)
-    except:
-        font_headline = ImageFont.load_default()
-        font_category = ImageFont.load_default()
-        font_page = ImageFont.load_default()
-        font_date = ImageFont.load_default()
+    font_headline = ImageFont.truetype("fonts/arialbd.ttf", 70)
+    font_category = ImageFont.truetype("fonts/arialbd.ttf", 42)
+    font_page = ImageFont.truetype("fonts/arialbd.ttf", 45)
+    font_date = ImageFont.truetype("fonts/arial.ttf", 35)
+    # try:
+    #     font_headline = ImageFont.truetype("fonts/arialbd.ttf", 70)
+    #     font_category = ImageFont.truetype("fonts/arialbd.ttf", 42)
+    #     font_page = ImageFont.truetype("fonts/arialbd.ttf", 45)
+    #     font_date = ImageFont.truetype("fonts/arial.ttf", 35)
+    # except:
+    #     font_headline = ImageFont.load_default()
+    #     font_category = ImageFont.load_default()
+    #     font_page = ImageFont.load_default()
+    #     font_date = ImageFont.load_default()
 
     # page name
     pageName = os.getenv("pageName")
