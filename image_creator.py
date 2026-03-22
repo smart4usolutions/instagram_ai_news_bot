@@ -46,7 +46,7 @@ def create_post_image(headline, image_url, category):
 
     # fonts
     try:
-        font_path = "fonts/arialbd.ttf"
+        font_path = "fonts/ARIAL.TTF"
 
         if not os.path.exists(font_path):
             print(f"❌ Font not found at: {font_path}")
