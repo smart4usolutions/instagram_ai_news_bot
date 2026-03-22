@@ -51,6 +51,7 @@ def create_post_image(headline, image_url, category):
         font_page = ImageFont.truetype("fonts/arialbd.ttf", 45)
         font_date = ImageFont.truetype("fonts/arial.ttf", 35)
     except:
+        print(font_headline)
         font_headline = ImageFont.load_default()
         font_category = ImageFont.load_default()
         font_page = ImageFont.load_default()
