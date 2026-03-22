@@ -46,13 +46,20 @@ def create_post_image(headline, image_url, category):
 
     # fonts
     try:
+        font_path = "fonts/arialbd.ttf"
+
+        if not os.path.exists(font_path):
+            print(f"❌ Font not found at: {font_path}")
+        else:
+            print(f"✅ Font found at: {font_path}")
         font_headline = ImageFont.truetype("fonts/arialbd.ttf", 70)
+        print(f"✅ Loaded font: {font_path}")
         font_category = ImageFont.truetype("fonts/arialbd.ttf", 42)
         font_page = ImageFont.truetype("fonts/arialbd.ttf", 45)
         font_date = ImageFont.truetype("fonts/arial.ttf", 35)
     except:
-        print(font_headline)
         font_headline = ImageFont.load_default()
+        print(f"✅ Loaded default font")
         font_category = ImageFont.load_default()
         font_page = ImageFont.load_default()
         font_date = ImageFont.load_default()
