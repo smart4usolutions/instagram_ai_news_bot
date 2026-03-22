@@ -4,6 +4,7 @@ from image_creator import create_post_image
 from upload_image import upload_image
 from instagram_post import post_to_instagram
 import time
+import sys
 
 news = get_news()
 
@@ -21,6 +22,9 @@ print("\nINSTAGRAM CAPTION:\n")
 print(caption)
 time.sleep(5)
 
+if not news.get("image"):
+    print("No image found. Stopping execution.")
+    sys.exit()
 image_path = create_post_image(
     news["title"],
     news["image"],

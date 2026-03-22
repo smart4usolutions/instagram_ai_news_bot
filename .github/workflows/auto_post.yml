@@ -2,7 +2,7 @@ name: Instagram Auto Post
 
 on:
   schedule:
-    - cron: '0 */2 * * *'   # every 1 hours
+    - cron: '0 */1 * * *'   # every 1 hours
   workflow_dispatch:        # manual run button
 
 jobs:
