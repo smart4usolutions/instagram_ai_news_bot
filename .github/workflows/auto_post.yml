@@ -35,7 +35,7 @@ jobs:
           IG_USER_ID: ${{ secrets.IG_USER_ID }}
           CLOUD_NAME: ${{ secrets.CLOUD_NAME }}
           UPLOAD_PRESET: ${{ secrets.UPLOAD_PRESET }}
-          PAGE_NAME: ${{ secrets.PAGE_NAME }}
+          PAGE_NAME: ${{ secrets.PAGENAME }}
         run: python main.py
       - name: Commit updated index
         run: |
