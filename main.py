@@ -15,7 +15,8 @@ time.sleep(5)
 caption = generate_caption(
     news["title"],
     news.get("description"),
-    news["category"]
+    news["category"],
+    news["source"]
 )
 
 print("\nINSTAGRAM CAPTION:\n")
