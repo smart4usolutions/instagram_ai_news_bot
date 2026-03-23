@@ -77,6 +77,7 @@ def get_news():
 
         description = article.get("description") or ""
         content = article.get("content") or ""
+        source = article["source"]["name"]
 
         full_text = description + " " + content
 
@@ -84,6 +85,7 @@ def get_news():
             "title": article["title"],
             "image": article["urlToImage"],
             "category": topic,
+            "source":source,
             "description": article["description"]
         }
 

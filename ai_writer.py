@@ -8,7 +8,7 @@ load_dotenv()
 API_KEY = os.getenv("OPENROUTER_API_KEY")
 pageName = os.getenv("PAGE_NAME")
 
-def generate_caption(title, description, category):
+def generate_caption(title, description, category, source):
 
     if not description:
         description = "Latest developments are unfolding in this story."
@@ -19,8 +19,8 @@ def generate_caption(title, description, category):
     # create paragraphs
     lines = textwrap.wrap(description)
 
-    para1 = " ".join(lines[:3])
-    para2 = " ".join(lines[3:6])
+    para1 = " ".join(lines[:4])
+    para2 = " ".join(lines[4:8])
 
     caption = f"""🚨 {category.upper()} NEWS
 
@@ -29,6 +29,8 @@ def generate_caption(title, description, category):
 {para1}
 
 {para2}
+
+📰 Source: {source}
 
 {pageName}
 Stay updated with the latest global developments.
