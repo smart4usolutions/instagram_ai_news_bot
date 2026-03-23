@@ -22,22 +22,34 @@ INDEX_FILE = "topic_index.txt"
 
 
 def get_next_topic():
+    try:
+        # Check if file exists, create if not
+        if not os.path.exists(INDEX_FILE):
+            with open(INDEX_FILE, "w") as f:
+                f.write("0")
+            print("File created successfully.")
 
-    if not os.path.exists(INDEX_FILE):
+        # Try reading file
+        with open(INDEX_FILE, "r") as f:
+            index = int(f.read())
+        print("File read successfully.")
+
+        topic = topics[index]
+
+        # Update index
+        index = (index + 1) % len(topics)
+
+        # Try writing file
         with open(INDEX_FILE, "w") as f:
-            f.write("0")
+            f.write(str(index))
+        print("File written successfully.")
 
-    with open(INDEX_FILE, "r") as f:
-        index = int(f.read())
+        return topic
 
-    topic = topics[index]
+    except Exception as e:
+        print("Error accessing file:", e)
+        return None
 
-    index = (index + 1) % len(topics)
-
-    with open(INDEX_FILE, "w") as f:
-        f.write(str(index))
-
-    return topic
 
 
 def get_news():
