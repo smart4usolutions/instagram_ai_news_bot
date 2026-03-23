@@ -59,6 +59,7 @@ def create_post_image(headline, image_url, category):
 
     # page name
     pageName = os.getenv("PAGE_NAME")
+    #pageName="@ai.worldbrief_"
     print("This is page name ",pageName)
     draw.text(
     (40, 40),
