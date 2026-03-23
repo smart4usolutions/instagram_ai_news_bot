@@ -32,7 +32,7 @@ def get_next_topic():
         # Try reading file
         with open(INDEX_FILE, "r") as f:
             index = int(f.read())
-        print("File read successfully.")
+        print("File read successfully. old index value is ",index)
 
         topic = topics[index]
 
@@ -42,7 +42,7 @@ def get_next_topic():
         # Try writing file
         with open(INDEX_FILE, "w") as f:
             f.write(str(index))
-        print("File written successfully.")
+        print("File written successfully. old index value is ",index)
 
         return topic
 
