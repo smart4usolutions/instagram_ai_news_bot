@@ -40,9 +40,17 @@ def get_next_topic():
         index = (index + 1) % len(topics)
 
         # Try writing file
+        # with open(INDEX_FILE, "w") as f:
+        #     f.write(str(index))
+        # print("File written successfully. old index value is ",index)
         with open(INDEX_FILE, "w") as f:
             f.write(str(index))
-        print("File written successfully. old index value is ",index)
+            f.flush()
+            os.fsync(f.fileno())
+
+        # 🔥 Read immediately after writing
+        with open(INDEX_FILE, "r") as f:
+            print("File after write:", f.read())
 
         return topic
 
