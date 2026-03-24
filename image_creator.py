@@ -120,8 +120,8 @@ def create_post_image(title, image_url, category):
     draw = ImageDraw.Draw(bg)
 
     # Fonts
-    font_bold_path = os.path.join(BASE_DIR, "fonts/arialbd.ttf")
-    font_regular_path = os.path.join(BASE_DIR, "fonts/arial.ttf")
+    font_bold_path = os.path.join(BASE_DIR, "fonts/ARIALBD.ttf")
+    font_regular_path = os.path.join(BASE_DIR, "fonts/ARIAL.ttf")
 
     font_page = ImageFont.truetype(font_bold_path, 42)
     font_category = ImageFont.truetype(font_bold_path, 50)
