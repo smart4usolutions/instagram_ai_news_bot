@@ -32,8 +32,7 @@ def generate_caption(title, description, category, source):
 
 📰 Source: {source}
 
-{pageName}
-Stay updated with the latest global developments.
+Follow {pageName} for the latest global developments.
 
 #news #breakingnews #{category.lower()} #worldnews #trending #dailynews
 """
