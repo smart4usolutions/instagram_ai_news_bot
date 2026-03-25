@@ -129,7 +129,7 @@ def create_post_image(title, image_url, category):
     # ----------------------------
     # PAGE NAME (TOP CENTER)
     # ----------------------------
-    page_name = "Follow ",os.getenv("PAGE_NAME")
+    page_name = "Follow " + os.getenv("PAGE_NAME")
 
     bbox = draw.textbbox((0, 0), page_name, font=font_page)
     text_width = bbox[2] - bbox[0]
