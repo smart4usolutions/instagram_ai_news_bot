@@ -71,7 +71,7 @@ def apply_bottom_gradient(image):
     gradient = Image.new("L", (1, HEIGHT))
 
     for y in range(HEIGHT):
-        if y < HEIGHT * 0.3:
+        if y < HEIGHT * 0.4:
             value = 0
         else:
             value = int(255 * ((y - HEIGHT * 0.4) / (HEIGHT * 0.6)))
@@ -119,17 +119,22 @@ def create_post_image(title, image_url, category):
 
     draw = ImageDraw.Draw(bg)
 
-    # Fonts
+    # Fonts (SAFE LOAD)
     font_bold_path = os.path.join(BASE_DIR, "fonts/ARIALBD.TTF")
     font_regular_path = os.path.join(BASE_DIR, "fonts/ARIAL.TTF")
 
-    font_page = ImageFont.truetype(font_bold_path, 42)
-    font_category = ImageFont.truetype(font_bold_path, 50)
+    try:
+        font_page = ImageFont.truetype(font_bold_path, 42)
+        font_category = ImageFont.truetype(font_bold_path, 50)
+    except:
+        print("⚠️ Font load failed, using default")
+        font_page = ImageFont.load_default()
+        font_category = ImageFont.load_default()
 
     # ----------------------------
     # PAGE NAME (TOP CENTER)
     # ----------------------------
-    page_name = "Follow " + os.getenv("PAGE_NAME")
+    page_name = "Follow " + str(os.getenv("PAGE_NAME"))
 
     bbox = draw.textbbox((0, 0), page_name, font=font_page)
     text_width = bbox[2] - bbox[0]
@@ -141,12 +146,9 @@ def create_post_image(title, image_url, category):
     draw.text((x, y), page_name, font=font_page, fill="white")
 
     # ----------------------------
-    # TITLE (CENTERED)
+    # TEXT PREP
     # ----------------------------
-    # ----------------------------
-    # PREP TEXT
-    # ----------------------------
-    title = wrap_text(title, 24)
+    title = wrap_text(title, 20)
 
     max_width = WIDTH - 120
     max_total_height = int(HEIGHT * 0.40)
@@ -154,44 +156,8 @@ def create_post_image(title, image_url, category):
     bottom_padding = 80
     gap = 30
 
-    # ----------------------------
-    # FIND BEST TITLE FONT (FILL SPACE)
-    # ----------------------------
-    best_font = None
-
-    for size in range(90, 30, -2):
-        font = ImageFont.truetype(font_bold_path, size)
-
-        title_bbox = draw.multiline_textbbox(
-            (0, 0), title, font=font, spacing=12
-        )
-
-        title_h = title_bbox[3] - title_bbox[1]
-
-        # estimate category height
-        cat_font = ImageFont.truetype(font_bold_path, 50)
-        cat_bbox = draw.textbbox((0, 0), category.upper(), font=cat_font)
-        cat_h = (cat_bbox[3] - cat_bbox[1]) + 30  # padding
-
-        total_h = title_h + gap + cat_h
-
-        if total_h <= max_total_height:
-            best_font = font
-            break
-
-    if best_font is None:
-        best_font = ImageFont.truetype(font_bold_path, 40)
-
-    # ----------------------------
-    # FINAL SIZE CALC
-    # ----------------------------
-    title_bbox = draw.multiline_textbbox((0, 0), title, font=best_font, spacing=12)
-    title_w = title_bbox[2] - title_bbox[0]
-    title_h = title_bbox[3] - title_bbox[1]
-
-    # CATEGORY
+    # CATEGORY SIZE
     category_text = category.upper()
-    font_category = ImageFont.truetype(font_bold_path, 50)
 
     cat_bbox = draw.textbbox((0, 0), category_text, font=font_category)
     cat_text_w = cat_bbox[2] - cat_bbox[0]
@@ -203,18 +169,60 @@ def create_post_image(title, image_url, category):
     box_w = cat_text_w + padding_x * 2
     box_h = cat_text_h + padding_y * 2
 
+    # Available space for title
+    available_title_height = max_total_height - box_h - gap
+
+    # ----------------------------
+    # SMART FONT SCALING (STRICT)
+    # ----------------------------
+    best_font = None
+
+    for size in range(90, 30, -2):
+        try:
+            font = ImageFont.truetype(font_bold_path, size)
+        except:
+            font = ImageFont.load_default()
+
+        title_bbox = draw.multiline_textbbox(
+            (0, 0), title, font=font, spacing=12
+        )
+
+        title_w = title_bbox[2] - title_bbox[0]
+        title_h = title_bbox[3] - title_bbox[1]
+
+        if title_w <= max_width and title_h <= available_title_height:
+            best_font = font
+            break
+
+    if best_font is None:
+        best_font = ImageFont.truetype(font_bold_path, 38)
+
+    # ----------------------------
+    # FINAL TITLE SIZE
+    # ----------------------------
+    title_bbox = draw.multiline_textbbox((0, 0), title, font=best_font, spacing=12)
+    title_w = title_bbox[2] - title_bbox[0]
+    title_h = title_bbox[3] - title_bbox[1]
+
     # ----------------------------
     # BOTTOM ANCHOR POSITIONING
     # ----------------------------
     current_y = HEIGHT - bottom_padding
 
-    # TITLE position
     title_y = current_y - title_h
     title_x = (WIDTH - title_w) // 2
 
-    # CATEGORY position (above title)
     cat_y = title_y - gap - box_h
     cat_x = (WIDTH - box_w) // 2
+
+    # ----------------------------
+    # HARD SAFETY CLAMP (NO OVERFLOW)
+    # ----------------------------
+    if title_y + title_h > HEIGHT - 20:
+        title_y = HEIGHT - title_h - 20
+
+    if title_y < HEIGHT * 0.60:
+        title_y = int(HEIGHT * 0.60)
 
     # ----------------------------
     # DRAW CATEGORY BOX
@@ -224,9 +232,8 @@ def create_post_image(title, image_url, category):
         fill=(255, 60, 0)
     )
 
-    # ✅ PERFECT CENTER (FIXED)
     text_x = cat_x + (box_w - cat_text_w) // 2
-    text_y = cat_y + (box_h - cat_text_h) // 2 - 2   # 👈 micro-adjust
+    text_y = cat_y + (box_h - cat_text_h) // 2 - 2
 
     draw.text(
         (text_x, text_y),
@@ -255,7 +262,6 @@ def create_post_image(title, image_url, category):
         spacing=12,
         align="center"
     )
-
 
     # ----------------------------
     # SAVE IMAGE
