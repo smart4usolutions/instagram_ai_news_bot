@@ -14,7 +14,8 @@ topics = [
     "technology",
     "india",
     "finance market",
-    "entertainment industry"
+    "entertainment",
+    "sports"
 ]
 
 # file to store last topic index
